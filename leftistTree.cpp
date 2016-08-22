@@ -4,7 +4,8 @@ struct node
 {
     int data;
     node *leftChild,*rightChild;
-}*root,*temp;
+}*root,*temp,*t;
+void displayInorder(node *r);
 int sValue(node *r)
 {
     int ls,rs;
@@ -41,9 +42,11 @@ void insertVal(node *root1,node *r) //  need to check the maximum value in inter
         balanceTree(root1);
     }
     else{
+            cout<<"\nr is greater";
         if(root1==root){
-                root=r;
                 r->rightChild=root1;
+                root=r;
+                balanceTree(root);
         }
         else{
             temp= new node;
@@ -51,12 +54,13 @@ void insertVal(node *root1,node *r) //  need to check the maximum value in inter
             temp->leftChild=root1->leftChild;
             temp->rightChild=root1->rightChild;
             root1->data=r->data;
-            root1->leftChild=NULL;
+            root1->leftChild=r->leftChild;
             root1->rightChild=temp;
+            balanceTree(root1);
         }
 
-
-        balanceTree(r);
+        t=root;
+        displayInorder(t);
     }
 }
 void displayInorder(node *r)
